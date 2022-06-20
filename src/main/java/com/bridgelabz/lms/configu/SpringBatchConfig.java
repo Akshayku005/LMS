@@ -15,6 +15,7 @@ import org.springframework.batch.item.file.LineMapper;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
@@ -27,7 +28,7 @@ public class SpringBatchConfig {
     private JobBuilderFactory jobBuilderFactory;
 
     private StepBuilderFactory stepBuilderFactory;
-
+    @Autowired
     private CandidateRepository customerRepository;
 
     @Bean
@@ -46,7 +47,7 @@ public class SpringBatchConfig {
         DelimitedLineTokenizer lineTokenizer = new DelimitedLineTokenizer();
         lineTokenizer.setDelimiter(",");
         lineTokenizer.setStrict(false);
-        lineTokenizer.setNames("id", "firstName", "lastName","status");
+        lineTokenizer.setNames("id", "firstName", "lastName", "status");
 
         BeanWrapperFieldSetMapper<Candidate> fieldSetMapper = new BeanWrapperFieldSetMapper<>();
         fieldSetMapper.setTargetType(Candidate.class);
@@ -76,7 +77,6 @@ public class SpringBatchConfig {
                 .reader(reader())
                 //.processor(processor())
                 .writer(writer())
-                // .taskExecutor(taskExecutor())
                 .build();
     }
 
