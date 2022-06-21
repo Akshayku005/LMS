@@ -1,5 +1,7 @@
 package com.bridgelabz.lms.dto;
 
+import com.bridgelabz.lms.model.BankInfo;
+import com.bridgelabz.lms.model.QualificationInfo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,5 +28,6 @@ public class CandidateDTO {
     private String phonenumber;
     @NotEmpty(message = "Enter your city")
     private String city;
-
+    private BankInfo bankInfo;
+    private QualificationInfo qualificationInfo;
 }

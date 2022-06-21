@@ -24,6 +24,8 @@ public @Data class Candidate {
     private String email;
     private String phonenumber;
     private String city;
+    private BankInfo bankInfo;
+    private QualificationInfo qualificationInfo;
 
     public Candidate(CandidateDTO candidateDTO) {
         super();
@@ -33,6 +35,8 @@ public @Data class Candidate {
         this.email = candidateDTO.getEmail();
         this.phonenumber = candidateDTO.getPhonenumber();
         this.city = candidateDTO.getCity();
+        this.bankInfo=candidateDTO.getBankInfo();
+        this.qualificationInfo=candidateDTO.getQualificationInfo();
     }
 
     public Candidate(long id, CandidateDTO candidateDTO) {
@@ -43,6 +47,8 @@ public @Data class Candidate {
         this.email = candidateDTO.getEmail();
         this.phonenumber = candidateDTO.getPhonenumber();
         this.city = candidateDTO.getCity();
+        this.bankInfo=candidateDTO.getBankInfo();
+        this.qualificationInfo=candidateDTO.getQualificationInfo();
     }
 }
 

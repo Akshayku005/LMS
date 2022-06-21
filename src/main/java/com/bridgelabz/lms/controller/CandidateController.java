@@ -49,9 +49,8 @@ public class CandidateController {
     }
 
     /**
-     *
      * @param candidateDTO
-     * @return  Ability to Add candidate
+     * @return Ability to Add candidate
      */
     @PostMapping("/addCandidate")
     public ResponseEntity<ResponseDTO> createUser(@Valid @RequestBody CandidateDTO candidateDTO) {
@@ -84,7 +83,6 @@ public class CandidateController {
     }
 
     /**
-     *
      * @param token
      * @return Ability to get candidate details by token
      */
@@ -97,39 +95,47 @@ public class CandidateController {
     }
 
     /**
-     *
      * @param token
      * @param candidateDTO
      * @return Ability to update candidate details by token
      */
     @PutMapping("/updateCandidateByToken/{token}")
-    public ResponseEntity<String> updateRecordById(@PathVariable String token,@Valid @RequestBody CandidateDTO candidateDTO) {
+    public ResponseEntity<String> updateRecordByToken(@PathVariable String token, @Valid @RequestBody CandidateDTO candidateDTO) {
         Candidate updateRecord = iCandidateService.updateRecordByToken(token, candidateDTO);
+        ResponseDTO dto = new ResponseDTO(" Candidate Record updated successfully by Id", updateRecord);
+        return new ResponseEntity(dto, HttpStatus.ACCEPTED);
+    }
+    /**
+     * @param Id
+     * @param candidateDTO
+     * @return Ability to update candidate details by Id
+     */
+    @PutMapping("/updateCandidateById/{id}")
+    public ResponseEntity<String> updateRecordById(@PathVariable long id, @Valid @RequestBody CandidateDTO candidateDTO) {
+        Candidate updateRecord = iCandidateService.updateRecordById(id, candidateDTO);
         ResponseDTO dto = new ResponseDTO(" Candidate Record updated successfully by Id", updateRecord);
         return new ResponseEntity(dto, HttpStatus.ACCEPTED);
     }
 
     /**
-     *
      * @param status
      * @return Ability to get candidate details by candidate status
      */
     @GetMapping("/getBy/{status}")
     public ResponseEntity<ResponseDTO> getHiredCandidatesNotHiredCandidates(@PathVariable String status) {
-       List candidate = iCandidateService.hiredCondidate(status);
+        List candidate = iCandidateService.hiredCondidate(status);
         ResponseDTO response = new ResponseDTO("Requested HiredCandidate or Not HiredCandidate : ", candidate);
         return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);
     }
 
     /**
-     *
      * @param status
      * @return Ability to count how many are hired and how many are not hired
      */
     @GetMapping("/count/{status}")
-    public ResponseEntity<ResponseDTO> getCount1 (@PathVariable  String status){
+    public ResponseEntity<ResponseDTO> getCount1(@PathVariable String status) {
         long hiredCandidate = iCandidateService.count1(status);
-        ResponseDTO response = new ResponseDTO("Candidates Count",hiredCandidate);
+        ResponseDTO response = new ResponseDTO("Candidates Count", hiredCandidate);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -139,34 +145,53 @@ public class CandidateController {
      */
 
     @GetMapping("/count")
-    public ResponseEntity<ResponseDTO> getCount (){
+    public ResponseEntity<ResponseDTO> getCount() {
         long hiredCandidate = iCandidateService.count();
-        ResponseDTO response = new ResponseDTO("Candidates Count",hiredCandidate);
+        ResponseDTO response = new ResponseDTO("Candidates Count", hiredCandidate);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     /**
-     *
      * @param token
      * @return Ability to send message regarding offer letter and shortlist by token
      */
     @PostMapping("/jobofferByToken/{token}")
-    public ResponseEntity<ResponseDTO> sendOffer(@PathVariable String token){
+    public ResponseEntity<ResponseDTO> sendOffer(@PathVariable String token) {
         Candidate hiredCandidate = iCandidateService.jobOfferMail(token);
         ResponseDTO response = new ResponseDTO("Email sent successfully", hiredCandidate);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     /**
-     *
      * @param id
      * @return Ability to send message regarding offer letter and shortlist by token
      */
-
     @PostMapping("/jobofferById/{id}")
-    public ResponseEntity<ResponseDTO> sendOffer(@PathVariable long id){
+    public ResponseEntity<ResponseDTO> sendOffer(@PathVariable long id) {
         Candidate hiredCandidate = iCandidateService.jobOfferMail(id);
         ResponseDTO response = new ResponseDTO("Email sent successfully", hiredCandidate);
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+    /**
+     * @param Id
+     * @param delete
+     * @return Ability to delete candidate details by Id
+     */
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<ResponseDTO> deleteById(@PathVariable long id) {
+        iCandidateService.deletebyId(id);
+        ResponseDTO responseDTO = new ResponseDTO("candidate data deleted successfully", id);
+        return new ResponseEntity(responseDTO, HttpStatus.OK);
+    }
+    /**
+     * @param Id
+     * @param delete
+     * @return Ability to delete candidate details by token
+     */
+    @DeleteMapping("/deleteBy/{token}")
+    public ResponseEntity<ResponseDTO> deleteByToken(@PathVariable String token) {
+        iCandidateService.deleteByToken(token);
+        ResponseDTO responseDTO = new ResponseDTO("candidate data deleted successfully", token);
+        return new ResponseEntity(responseDTO, HttpStatus.OK);
     }
 }

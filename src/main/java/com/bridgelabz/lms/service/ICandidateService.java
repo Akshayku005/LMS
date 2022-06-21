@@ -24,4 +24,7 @@ public interface ICandidateService {
 
     Candidate jobOfferMail(long id);
 
+    Candidate updateRecordById(long id, CandidateDTO candidateDTO);
+    void deletebyId(long id);
+    void deleteByToken(String token);
 }

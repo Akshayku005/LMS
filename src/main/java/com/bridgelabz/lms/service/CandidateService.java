@@ -124,4 +124,37 @@ public class CandidateService implements ICandidateService {
         }
         return hiredCandidate.get();
     }
+
+    @Override
+    public Candidate updateRecordById(long id, CandidateDTO candidateDTO) {
+        Optional<Candidate> candidate = candidateRepository.findById(id);
+        if (candidate.isPresent()) {
+            Candidate newCandidate = new Candidate(id, candidateDTO);
+            candidateRepository.save(newCandidate);
+            return newCandidate;
+        } else {
+            throw new CandidateException(HttpStatus.NOT_FOUND, "Candidate not found by this Id");
+        }
+    }
+
+    @Override
+    public void deletebyId(long id) {
+        Optional<Candidate> candidate = candidateRepository.findById(id);
+        if (candidate.isPresent()) {
+            candidateRepository.deleteById(id);
+        } else {
+            throw new CandidateException("Candidate record does not found");
+        }
+    }
+
+    @Override
+    public void deleteByToken(String token) {
+        long id = util.decodeToken(token);
+        Optional<Candidate> delete = candidateRepository.findById(id);
+        if (delete.isPresent()) {
+            candidateRepository.deleteById(id);
+        } else {
+            throw new CandidateException(" Candidate record does not found ");
+        }
+    }
 }

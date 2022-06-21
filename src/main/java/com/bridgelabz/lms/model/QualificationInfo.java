@@ -14,11 +14,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection="qualification_info")
 public @Data class QualificationInfo {
 
-    @Transient
-    public static final String SEQUENCE_NAME = "qualification_sequence";
-
-    @Id
-    private long id;
+//    @Transient
+//    public static final String SEQUENCE_NAME = "qualification_sequence";
+//
+//    @Id
+//    private long id;
 
     public String collegeName;
 
@@ -30,6 +30,8 @@ public @Data class QualificationInfo {
 
     public String course;
 
+    public String document;
+
     public QualificationInfo(QualificationDto qualificationDto) {
         super();
         this.collegeName = qualificationDto.getCollegeName();
@@ -37,16 +39,17 @@ public @Data class QualificationInfo {
         this.percentage = qualificationDto.getPercentage();
         this.yearOfPassing = qualificationDto.getYearOfPassing();
         this.course = qualificationDto.getCourse();
-
+        this.document = qualificationDto.getDocument();
     }
 
-    public QualificationInfo(long id, QualificationDto qualificationDto) {
-        this.id=id;
-        this.collegeName = qualificationDto.getCollegeName();
-        this.higherEducation = qualificationDto.getHigherEducation();
-        this.percentage = qualificationDto.getPercentage();
-        this.yearOfPassing = qualificationDto.getYearOfPassing();
-        this.course = qualificationDto.getCourse();
-    }
+//    public QualificationInfo(long id, QualificationDto qualificationDto) {
+//        this.id=id;
+//        this.collegeName = qualificationDto.getCollegeName();
+//        this.higherEducation = qualificationDto.getHigherEducation();
+//        this.percentage = qualificationDto.getPercentage();
+//        this.yearOfPassing = qualificationDto.getYearOfPassing();
+//        this.course = qualificationDto.getCourse();
+//        this.document = qualificationDto.getDocument();
+//    }
 
 }
